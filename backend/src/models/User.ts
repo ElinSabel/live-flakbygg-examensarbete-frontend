@@ -13,13 +13,13 @@ const UserSchema = new Schema(
     country: { type: String, required: true },
     refreshToken: { type: String, default: "" },
     passwordResetToken: {
-      type: String,
-      default: "",
-    },
-    passwordResetExpires: {
-      type: Date,
-      default: "",
-    },
+  type: String,
+  default: undefined, 
+},
+passwordResetExpires: {
+  type: Date,
+  default: undefined,  
+},
     role: {
       type: String,
       enum: ["seller", "customer"],
