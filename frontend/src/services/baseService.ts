@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-export const API_URL = "https://live-flakbygg-examensarbete-backend.vercel.app/";
+export const API_URL = "https://flakbygg-backend-production.up.railway.app";
 
 export const api = axios.create({
   baseURL: API_URL,
