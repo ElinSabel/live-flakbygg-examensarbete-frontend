@@ -69,6 +69,7 @@ export const useRequest = () => {
     try {
       const newRequest = await createRequest(payload);
       setRequests((prev) => [...prev, newRequest]);
+      setCustomerRequests((prev) => [...prev, newRequest]);
       setRequest(newRequest);
       return newRequest;
     } finally {
