@@ -111,7 +111,7 @@ export const CreateRequest = ({ customerId }: CreateRequestProps) => {
       behavior: "smooth",
     });
     setTimeout(() => {
-      navigate("/customer", { replace: true });
+      navigate("/", { replace: true });
     }, 2500);
   };
 
