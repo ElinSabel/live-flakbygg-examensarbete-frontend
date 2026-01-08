@@ -1,15 +1,7 @@
-import * as dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
-import { createServer } from "http";
-import { Server } from "socket.io";
-import { socketAuth } from "./sockets/socketAuth";
-import { chatSocket } from "./sockets/chatSocket";
 
 import customerRouter from "./routes/users";
 import authRouter from "./routes/auth";
@@ -21,18 +13,30 @@ import { webhook } from "./controllers/stripeController";
 
 const app = express();
 
+/* ------------------ CORS ------------------ */
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "https://live-flakbygg-examensarbete-fronten.vercel.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );
 
 app.use(cookieParser());
 
-app.post("/stripe/webhook", express.raw({ type: "application/json" }), webhook);
+/* ---------------- Stripe Webhook ---------------- */
+app.post(
+  "/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  webhook
+);
+
+/* ---------------- JSON ---------------- */
 app.use(express.json());
 
+/* ---------------- Routes ---------------- */
 app.use("/customers", customerRouter);
 app.use("/auth", authRouter);
 app.use("/camper-requests", requestRouter);
@@ -40,26 +44,36 @@ app.use("/orders", orderRouter);
 app.use("/chats", chatRouter);
 app.use("/stripe", stripeRouter);
 
-const httpServer = createServer(app);
-const io = new Server(httpServer, {
-  cors: {
-    origin: "http://localhost:5173",
-    credentials: true,
-  },
-});
+/* ---------------- MongoDB (Serverless Safe) ---------------- */
+let cached = global.mongoose;
 
-io.use(socketAuth);
-chatSocket(io);
+if (!cached) {
+  cached = global.mongoose = {
+    conn: null,
+    promise: null,
+  };
+}
 
-const startServer = async () => {
-  await mongoose.connect(process.env.DB_URL as string);
+async function connectDB() {
+  if (cached!.conn) return cached!.conn;
+
+  if (!cached!.promise) {
+    cached!.promise = mongoose
+      .connect(process.env.DB_URL as string)
+      .then((m) => m);
+  }
+
+  cached!.conn = await cached!.promise;
   console.log("✅ MongoDB connected");
 
-  httpServer.listen(3000, () =>
-    console.log("🚀 Server running on port 3000")
-  );
-};
+  return cached!.conn;
+}
 
-startServer();
+app.use(async (_req, _res, next) => {
+  await connectDB();
+  next();
+});
+
+
 
 export default app;
