@@ -3,6 +3,7 @@ import mongoose, { Schema, Types } from "mongoose";
 export interface IMessage {
   sender: Types.ObjectId;
   text: string;
+  createdAt?: Date;
 }
 
 export interface IChat {
