@@ -18,7 +18,7 @@ export const connectSocket = (accessToken: string): Socket => {
 
   currentToken = accessToken;
 
-  socket = io("http://localhost:3000", {
+  socket = io("https://flakbygg-backend-production.up.railway.app", {
     auth: { token: accessToken },
     transports: ["websocket"],
     autoConnect: true,
