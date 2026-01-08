@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import bcrypt from "bcrypt";
-import { logError } from "../utilities/logger";
 
 export const userController = {
   createUser: async (req: Request, res: Response) => {
@@ -39,7 +38,7 @@ export const userController = {
       const users = await User.find();
       res.json(users);
     } catch (error) {
-      res.status(500).json({ error: logError(error) });
+      res.status(500).json({ error: "failed to create User" });
     }
   },
 
@@ -50,7 +49,7 @@ export const userController = {
         ? res.json(user)
         : res.status(404).json({ message: "User not found" });
     } catch (error) {
-      res.status(500).json({ error: logError(error) });
+      res.status(500).json({ error: "failed to retrive User" });
     }
   },
 
@@ -61,7 +60,7 @@ export const userController = {
         ? res.json(user)
         : res.status(404).json({ message: "User not found" });
     } catch (error) {
-      res.status(500).json({ error: logError(error) });
+      res.status(500).json({ error: "failed to retrive User" });
     }
   },
 
@@ -98,7 +97,7 @@ export const userController = {
         ? res.json({ message: "User deleted" })
         : res.status(404).json({ message: "User not found" });
     } catch (error) {
-      res.status(500).json({ error: logError(error) });
+      res.status(500).json({ error: "failed to delete User" });
     }
   },
 };

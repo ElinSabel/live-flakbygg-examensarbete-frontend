@@ -13,12 +13,10 @@ router.get("/:requestId", verifyAccessToken, async (req, res) => {
   try {
     const { requestId } = req.params;
 
-    // Check that req.user exists
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // Cast req.user to your JWT payload type
     const user = req.user as JwtUserPayload;
     const userId = user._id.toString();
 
@@ -28,7 +26,6 @@ router.get("/:requestId", verifyAccessToken, async (req, res) => {
       return res.status(200).json({ messages: [] });
     }
 
-    // Check if the user is allowed to see this chat
     if (
       chat.customerId.toString() !== userId &&
       chat.sellerId.toString() !== userId
@@ -36,7 +33,6 @@ router.get("/:requestId", verifyAccessToken, async (req, res) => {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    // Ensure messages have createdAt (optional chaining for safety)
     const messages: IMessage[] = [...chat.messages].sort(
       (a, b) =>
         new Date(a.createdAt ?? 0).getTime() -
