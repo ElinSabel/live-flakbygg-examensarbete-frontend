@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { About } from "./pages/About";
 import { CustomerDashboard } from "./pages/customer/CustomerDashboard";
 import { CustomerOrder } from "./pages/customer/CustomerOrder";
@@ -36,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "register", element: <Register /> },
       { path: "login", element: <Login /> },
+      { path: "order-confirmation", element: <OrderConfirmation /> },
       { path: "reset-password/:token", element: <PasswordReset />},
 
       {
@@ -67,7 +68,6 @@ export const router = createBrowserRouter([
           { path: "orders/:id", element: <CustomerOrder /> },
           { path: "requests/:id/chat", element: <CustomerRequest /> },
           { path: "payment/:requestId", element: <Payment /> },
-          { path: "order-confirmation", element: <OrderConfirmation /> },
         ],
       },
     ],
