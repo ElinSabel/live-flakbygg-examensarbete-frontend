@@ -48,7 +48,7 @@ export const OrderConfirmation = () => {
         <h2>{sessionData.requestId}</h2>
     
         <section className="card">
-        <h3>
+        <h3 className="centerText">
           {t("thankYou")}, {customer.firstname} {customer.lastname}!
         </h3>
         <div className="orderAmount">
