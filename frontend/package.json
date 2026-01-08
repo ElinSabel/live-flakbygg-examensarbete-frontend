@@ -25,6 +25,7 @@
     "react-router": "^7.3.0",
     "socket.io-client": "^4.8.1",
     "styled": "^1.0.0",
+    "react-router-dom": "^7.6.1",
     "styled-components": "^6.1.15"
   },
   "devDependencies": {
