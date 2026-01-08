@@ -873,12 +873,13 @@ footer .logo {
 .chatInputRow {
 	display: flex;
 	gap: 10px;
+	align-items: center;
 	margin-top: 10px;
 }
 
 .chatInput {
 	flex: 1;
-	padding: 10px 14px;
+	padding: 15px;
 	border-radius: var(--radius);
 	border: 1px solid var(--grey);
 	font-size: 1rem;

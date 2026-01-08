@@ -82,7 +82,7 @@ export const SellerDashboard = () => {
 
       <section>
         {requestsNeedingAttention.length === 0 ? (
-          <p className="intro centeredText">{t("noRequestsNeedAttention")}</p>
+          <p className="intro centerText">{t("noRequestsNeedAttention")}</p>
         ) : filteredRequests.length > 0 ? (
           filteredRequests.map((r) => (
             <DisplayRequests key={r._id} r={r} />
@@ -108,7 +108,7 @@ export const SellerDashboard = () => {
 
       <section>
         {ordersNeedingAttention.length === 0 ? (
-          <p className="intro">{t("noOrdersNeedAttention")}</p>
+          <p className="intro centerText">{t("noOrdersNeedAttention")}</p>
         ) : filteredOrders.length > 0 ? (
           filteredOrders.map((o) => (
             <DisplayOrders key={o._id} o={o} />

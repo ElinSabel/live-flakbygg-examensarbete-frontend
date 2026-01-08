@@ -57,7 +57,7 @@ export const SellerRequests = () => {
         {filteredRequests.length > 0 ? (
           filteredRequests.map((r) => <DisplayRequests key={r._id} r={r} />)
         ) : (
-          <p>{t("noMatch")}</p>
+          <p className="intro centerText">{t("noMatch")}</p>
         )}
       </section>
     </>

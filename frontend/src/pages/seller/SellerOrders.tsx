@@ -46,7 +46,7 @@ export const SellerOrders = () => {
         {filteredOrders.length > 0 ? (
           filteredOrders.map((o) => <DisplayOrders key={o._id} o={o} />)
         ) : (
-          <p className="intro centeredText">{t("noMatchOrder")}</p>
+          <p className="intro centerText">{t("noMatchOrder")}</p>
         )}
       </section>
     </>
